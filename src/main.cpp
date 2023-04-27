@@ -1,5 +1,6 @@
 #include <iostream>
 #include <filesystem>
+#include "utils.h"
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -25,6 +26,18 @@ int main(int argc, char *argv[])
   if (fs::is_empty(path))
   {
     cerr << "The directory is empty" << endl;
+    return 1;
+  }
+
+  try
+  {
+    auto result = readData(path);
+    cout << result.first;
+    cout << result.second << endl;
+  }
+  catch(const exception &e)
+  {
+    cerr << e.what() << endl;
     return 1;
   }
   return 0;
