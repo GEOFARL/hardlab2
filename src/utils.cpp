@@ -6,7 +6,17 @@ void readData(fs::path path)
   {
     if (dir_entry.path().extension() == ".csv")
     {
-      std::cout << dir_entry.path().filename().string() << std::endl;
+      std::ifstream infile(dir_entry.path());
+      if (!infile)
+      {
+        throw std::runtime_error("Error opening file " + dir_entry.path().string());
+      }
+
+      std::string line{};
+      while(std::getline(infile, line))
+      {
+        std::cout << line << std::endl;
+      }
     }
   }
 }
