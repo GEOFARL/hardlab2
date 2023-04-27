@@ -54,3 +54,14 @@ int *Student::getSubjects() const
 }
 
 bool Student::getOnContract() const { return onContract; }
+
+std::ostream &operator<<(std::ostream &os, const Student &student)
+{
+  os << student.lname << ",";
+  for (int i{}; i < Student::NUM_OF_SUBJECTS; ++i)
+  {
+    os << student.subjects[i] << ",";
+  }
+  os << (student.onContract ? "TRUE" : "FALSE");
+  return os;
+}

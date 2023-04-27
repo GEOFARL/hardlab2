@@ -43,21 +43,13 @@ int main(int argc, char *argv[])
   }
 
   Student s1{};
-  cout << s1.getLname() << endl;
-  cout << s1.getOnContract() << endl;
+  cout << s1 << endl;
 
   int subjects[] = {1, 2, 4, 5, 6};
   Student s2{
       "Hello",
       subjects,
       true};
-  cout << s2.getLname() << endl;
-  cout << s2.getOnContract() << endl;
-  int *subjectsN = s2.getSubjects();
-  for (int i{}; i < Student::NUM_OF_SUBJECTS; ++i)
-  {
-    cout << subjectsN[i] << endl;
-  }
-  delete[] subjectsN;
+  cout << s2 << endl;
   return 0;
 }

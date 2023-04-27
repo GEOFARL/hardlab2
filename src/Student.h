@@ -6,6 +6,7 @@
 
 class Student
 {
+  friend std::ostream &operator<<(std::ostream &, const Student &);
   std::string lname;
   int subjects[5];
   bool onContract;
