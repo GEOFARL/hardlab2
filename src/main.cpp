@@ -1,6 +1,8 @@
 #include <iostream>
+#include <filesystem>
 
 using namespace std;
+namespace fs = std::filesystem;
 
 int main(int argc, char *argv[])
 {
@@ -9,6 +11,11 @@ int main(int argc, char *argv[])
     cerr << "Usage: " << argv[0] << " <filepath>" << endl;
     return 1;
   }
-  cout << argv[1] << endl;
+  fs::path path{argv[1]};
+  if (!fs::exists(path))
+  {
+    cerr << "The filepath " << fs::absolute(path).string() << " is not valid" << endl;
+    return 1;
+  }
   return 0;
 }
