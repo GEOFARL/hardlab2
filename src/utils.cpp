@@ -27,3 +27,19 @@ std::pair<std::string, int> readData(fs::path path)
 
   return std::make_pair(text, numOfStudents);
 }
+
+void processData(std::pair<std::string, int> data)
+{
+  int numOfStudents = data.second;
+  std::string text = data.first;
+
+  Student *students = new Student[numOfStudents];
+  std::string line{};
+  std::istringstream iss{text};
+
+  for (int i{}; i < numOfStudents; ++i)
+  {
+    getline(iss, line);
+    // convert line into Student obj
+  }
+}
