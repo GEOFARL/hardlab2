@@ -9,6 +9,6 @@
 
 namespace fs = std::filesystem;
 
-void readData(fs::path);
+std::pair<std::string, int> readData(fs::path);
 
 #endif

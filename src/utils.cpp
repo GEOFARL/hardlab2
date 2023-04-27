@@ -1,7 +1,9 @@
 #include "utils.h"
 
-void readData(fs::path path)
+std::pair<std::string, int>readData(fs::path path)
 {
+  int numOfStudents{};
+  std::string text{};
   for (const fs::directory_entry &dir_entry : fs::recursive_directory_iterator(path))
   {
     if (dir_entry.path().extension() == ".csv")
@@ -13,10 +15,15 @@ void readData(fs::path path)
       }
 
       std::string line{};
+      std::getline(infile, line);
+      numOfStudents += stoi(line);
+
       while(std::getline(infile, line))
       {
-        std::cout << line << std::endl;
+        text += line + '\n';
       }
     }
   }
+
+  return std::make_pair(text, numOfStudents);
 }

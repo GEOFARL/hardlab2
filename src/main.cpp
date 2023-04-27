@@ -31,7 +31,9 @@ int main(int argc, char *argv[])
 
   try
   {
-    readData(path);
+    auto result = readData(path);
+    cout << result.first;
+    cout << result.second << endl;
   }
   catch(const exception &e)
   {
