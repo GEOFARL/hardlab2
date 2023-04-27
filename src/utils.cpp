@@ -58,10 +58,13 @@ void processData(std::pair<std::string, int> data)
   std::string line{};
   std::istringstream iss{text};
 
+  int numOfBudgetStudents{};
+
   for (int i{}; i < numOfStudents; ++i)
   {
     getline(iss, line);
     students[i] = parseEntry(line);
+    numOfBudgetStudents += students[i].getOnContract() ? 0 : 1;
   }
 
   std::sort(students, students + numOfStudents,
@@ -73,5 +76,7 @@ void processData(std::pair<std::string, int> data)
   {
     std::cout << students[i] << " " << students[i].getAverageScore() << std::endl;
   }
+
+  int numSuccessfulStudents = 0.4 * numOfBudgetStudents;
   delete[] students;
 }

@@ -8,7 +8,6 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
-#include <cmath>
 #include "Student.h"
 
 namespace fs = std::filesystem;
