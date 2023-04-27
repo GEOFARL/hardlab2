@@ -28,6 +28,24 @@ std::pair<std::string, int> readData(fs::path path)
   return std::make_pair(text, numOfStudents);
 }
 
+Student parseEntry(std::string line)
+{
+  std::istringstream iss{line};
+  std::string lname{};
+  int subjects[Student::NUM_OF_SUBJECTS]{};
+  bool onContract{};
+
+  std::getline(iss, lname, ',');
+  for (int i{}; i < Student::NUM_OF_SUBJECTS; ++i)
+  {
+    iss >> subjects[i];
+    iss.ignore(); // ignore the comma separator
+  }
+  iss >> std::boolalpha >> onContract;
+
+  return Student(lname, subjects, onContract);
+}
+
 void processData(std::pair<std::string, int> data)
 {
   int numOfStudents = data.second;
@@ -40,6 +58,9 @@ void processData(std::pair<std::string, int> data)
   for (int i{}; i < numOfStudents; ++i)
   {
     getline(iss, line);
-    // convert line into Student obj
+    students[i] = parseEntry(line);
+    std::cout << students[i] << std::endl;
   }
+
+  delete[] students;
 }
