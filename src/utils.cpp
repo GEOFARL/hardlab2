@@ -1,6 +1,6 @@
 #include "utils.h"
 
-std::pair<std::string, int>readData(fs::path path)
+std::pair<std::string, int> readData(fs::path path)
 {
   int numOfStudents{};
   std::string text{};
@@ -18,7 +18,7 @@ std::pair<std::string, int>readData(fs::path path)
       std::getline(infile, line);
       numOfStudents += stoi(line);
 
-      while(std::getline(infile, line))
+      while (std::getline(infile, line))
       {
         text += line + '\n';
       }
