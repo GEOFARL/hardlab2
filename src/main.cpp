@@ -33,25 +33,12 @@ int main(int argc, char *argv[])
   try
   {
     auto result = readData(path);
-    cout << result.first;
-    cout << result.second << endl;
+    processData(result);
   }
   catch (const exception &e)
   {
     cerr << e.what() << endl;
     return 1;
   }
-
-  Student s1{};
-  cout << s1 << endl;
-  cout << s1.getAverageScore() << endl;
-
-  int subjects[] = {1, 2, 4, 5, 6};
-  Student s2{
-      "Hello",
-      subjects,
-      true};
-  cout << s2 << endl;
-  cout << s2.getAverageScore() << endl;
   return 0;
 }

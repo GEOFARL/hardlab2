@@ -6,9 +6,14 @@
 #include <iostream>
 #include <utility>
 #include <string>
+#include <sstream>
+#include <algorithm>
+#include <iomanip>
+#include "Student.h"
 
 namespace fs = std::filesystem;
 
 std::pair<std::string, int> readData(fs::path);
+void processData(std::pair<std::string, int>);
 
 #endif
