@@ -41,7 +41,10 @@ Student parseEntry(std::string line)
     iss >> subjects[i];
     iss.ignore(); // ignore the comma separator
   }
-  iss >> std::boolalpha >> onContract;
+
+  std::string word{};
+  iss >> word;
+  onContract = word == "TRUE";
 
   return Student(lname, subjects, onContract);
 }
@@ -59,8 +62,16 @@ void processData(std::pair<std::string, int> data)
   {
     getline(iss, line);
     students[i] = parseEntry(line);
-    std::cout << students[i] << std::endl;
   }
 
+  std::sort(students, students + numOfStudents,
+            [](const Student &s1, const Student &s2)
+            {
+              return s1.getAverageScore() > s2.getAverageScore();
+            });
+  for (int i{}; i < numOfStudents; ++i)
+  {
+    std::cout << students[i] << " " << students[i].getAverageScore() << std::endl;
+  }
   delete[] students;
 }

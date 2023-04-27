@@ -7,7 +7,8 @@
 #include <utility>
 #include <string>
 #include <sstream>
-#include <iomanip>
+#include <algorithm>
+#include <cmath>
 #include "Student.h"
 
 namespace fs = std::filesystem;
