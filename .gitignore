@@ -1,0 +1,5 @@
+build
+obj
+.vscode
+Makefile
+.DS_Store
