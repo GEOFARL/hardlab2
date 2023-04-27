@@ -1,6 +1,7 @@
 #include <iostream>
 #include <filesystem>
 #include "utils.h"
+#include "Student.h"
 
 using namespace std;
 namespace fs = std::filesystem;
