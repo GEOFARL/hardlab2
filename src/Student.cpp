@@ -55,6 +55,16 @@ int *Student::getSubjects() const
 
 bool Student::getOnContract() const { return onContract; }
 
+float Student::getAverageScore() const
+{
+  float sum{};
+  for (int i{}; i < Student::NUM_OF_SUBJECTS; ++i)
+  {
+    sum += subjects[i];
+  }
+  return sum / Student::NUM_OF_SUBJECTS;
+}
+
 std::ostream &operator<<(std::ostream &os, const Student &student)
 {
   os << student.lname << ",";

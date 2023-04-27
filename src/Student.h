@@ -25,6 +25,8 @@ public:
   std::string getLname() const;
   int *getSubjects() const;
   bool getOnContract() const;
+
+  float getAverageScore() const;
 };
 
 #endif

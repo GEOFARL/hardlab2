@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
 
   Student s1{};
   cout << s1 << endl;
+  cout << s1.getAverageScore() << endl;
 
   int subjects[] = {1, 2, 4, 5, 6};
   Student s2{
@@ -51,5 +52,6 @@ int main(int argc, char *argv[])
       subjects,
       true};
   cout << s2 << endl;
+  cout << s2.getAverageScore() << endl;
   return 0;
 }
