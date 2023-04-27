@@ -22,5 +22,10 @@ int main(int argc, char *argv[])
     cerr << "The filepath " << fs::absolute(path).string() << " you provided is not a directory" << endl;
     return 1;
   }
+  if (fs::is_empty(path))
+  {
+    cerr << "The directory is empty" << endl;
+    return 1;
+  }
   return 0;
 }
