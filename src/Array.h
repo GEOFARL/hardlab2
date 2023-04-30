@@ -8,9 +8,10 @@ class Array
 {
   T *data;
   size_t size;
+  size_t capacity;
 
 public:
-  Array() : data{nullptr}, size{0} {}
+  Array() : data{nullptr}, size{0}, capacity{0} {}
   explicit Array(size_t size) : data{new T[size]}, size{size} {}
 
   Array(const T *elements, size_t size) : data{new T[size]}, size{size}
@@ -69,6 +70,19 @@ public:
   }
 
   size_t getSize() const { return size; }
+
+  static size_t powerOf2(size_t num)
+  {
+    if (num == 0)
+      return num;
+    size_t power = 1;
+    while (power < n)
+    {
+      power <<= 1;
+    }
+
+    return power;
+  }
 };
 
 #endif
