@@ -12,9 +12,15 @@ class Array
 
 public:
   Array() : data{nullptr}, size{0}, capacity{0} {}
-  explicit Array(size_t size) : data{new T[size]}, size{size} {}
+  explicit Array(size_t size) : data{new T[Array::powerOf2(size)]}, size{size}, capacity{Array::powerOf2(size)}
+  {
+    for (size_t i{}; i < size; ++i)
+    {
+      data[i] = 0;
+    }
+  }
 
-  Array(const T *elements, size_t size) : data{new T[size]}, size{size}
+  Array(const T *elements, size_t size) : data{new T[Array::powerOf2(size)]}, size{size}, capacity{Array::powerOf2(size)}
   {
     for (size_t i{}; i < size; ++i)
     {
@@ -22,7 +28,7 @@ public:
     }
   }
 
-  Array(const Array &other) : data[new T[other.size]], size{size}
+  Array(const Array &other) : data{new T[other.capacity]}, size{other.size}, capacity{other.capacity}
   {
     for (size_t i{}; i < size; ++i)
     {
@@ -34,7 +40,7 @@ public:
   {
     if (this != &other)
     {
-      T *temp = new T[other.size];
+      T *temp = new T[other.capacity];
       for (size_t i = 0; i < other.size; ++i)
       {
         temp[i] = other.data[i];
@@ -42,6 +48,7 @@ public:
       delete[] data;
       data = temp;
       size = other.size;
+      capacity = other.capacity;
     }
     return *this;
   }
@@ -70,13 +77,14 @@ public:
   }
 
   size_t getSize() const { return size; }
+  size_t getCapacity() const { return capacity; }
 
   static size_t powerOf2(size_t num)
   {
     if (num == 0)
       return num;
     size_t power = 1;
-    while (power < n)
+    while (power < num)
     {
       power <<= 1;
     }
