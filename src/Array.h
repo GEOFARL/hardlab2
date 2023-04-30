@@ -91,6 +91,28 @@ public:
 
     return power;
   }
+
+  void resize(size_t newCapacity)
+  {
+    capacity = newCapacity;
+    T *newData = new T[newCapacity];
+    for (size_t i{}; i < size; ++i)
+    {
+      newData[i] = data[i];
+    }
+    delete[] data;
+    data = newData;
+  }
+
+  void addElement(T element)
+  {
+    if (size == capacity)
+    {
+      resize(size * 2);
+    }
+    size += 1;
+    data[size - 1] = element;
+  }
 };
 
 #endif
