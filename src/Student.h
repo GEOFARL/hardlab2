@@ -15,7 +15,6 @@ public:
   const static int NUM_OF_SUBJECTS = 5;
   const static int MAX_SCORE = 105;
   const static int MIN_SCORE = 0;
-  Student();
   Student(std::string, int[], bool);
 
   void setLname(std::string);

@@ -1,10 +1,5 @@
 #include "Student.h"
 
-Student::Student()
-    : lname{"None"}, subjects{}, onContract{false}
-{
-}
-
 Student::Student(std::string lname, int newSubjects[], bool onContract)
     : lname{lname}, onContract{onContract}
 {
