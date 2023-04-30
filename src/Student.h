@@ -3,26 +3,26 @@
 
 #include <iostream>
 #include <string>
+#include "Array.h"
 
 class Student
 {
   friend std::ostream &operator<<(std::ostream &, const Student &);
   std::string lname;
-  int subjects[5];
+  Array<int> subjects;
   bool onContract;
 
 public:
-  const static int NUM_OF_SUBJECTS = 5;
   const static int MAX_SCORE = 105;
   const static int MIN_SCORE = 0;
-  Student(std::string, int[], bool);
+  Student(std::string, const Array<int> &, bool);
 
   void setLname(std::string);
-  void setSubjects(int[]);
+  void setSubjects(const Array<int> &);
   void setOnContract(bool);
 
   std::string getLname() const;
-  int *getSubjects() const;
+  const Array<int> getSubjects() const;
   bool getOnContract() const;
 
   float getAverageScore() const;

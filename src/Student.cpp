@@ -1,9 +1,9 @@
 #include "Student.h"
 
-Student::Student(std::string lname, int newSubjects[], bool onContract)
-    : lname{lname}, onContract{onContract}
+Student::Student(std::string lname, const Array<int> &newSubjects, bool onContract)
+    : lname{lname}, subjects{Array<int>{newSubjects.getSize()}}, onContract{onContract}
 {
-  for (int i{}; i < Student::NUM_OF_SUBJECTS; ++i)
+  for (int i{}; i < newSubjects.getSize(); ++i)
   {
     if (newSubjects[i] < Student::MIN_SCORE || newSubjects[i] > Student::MAX_SCORE)
     {
@@ -16,36 +16,23 @@ Student::Student(std::string lname, int newSubjects[], bool onContract)
 
 void Student::setLname(std::string newLname) { lname = newLname; }
 
-void Student::setSubjects(int newSubjects[])
+void Student::setSubjects(const Array<int> &newSubjects)
 {
-  if (newSubjects == nullptr)
+  if (newSubjects.getSize() == 0)
   {
-    std::cerr << "Error: Null pointer passed to setSubjects()" << std::endl;
+    std::cerr << "Error: empty subjects array provided" << std::endl;
     return;
   }
-
-  for (int i{}; i < Student::NUM_OF_SUBJECTS; ++i)
-  {
-    if (newSubjects[i] < 0 || newSubjects[i] > 100)
-    {
-      std::cerr << "Error: Invalid score " << newSubjects[i] << " passed to setSubjects()" << std::endl;
-      return;
-    }
-    subjects[i] = newSubjects[i];
-  }
+  subjects = newSubjects;
 }
+
 void Student::setOnContract(bool newOnContract) { onContract = newOnContract; }
 
 std::string Student::getLname() const { return lname; }
 
-int *Student::getSubjects() const
+const Array<int> Student::getSubjects() const
 {
-  int *copy = new int[NUM_OF_SUBJECTS];
-  for (int i = 0; i < NUM_OF_SUBJECTS; i++)
-  {
-    copy[i] = subjects[i];
-  }
-  return copy;
+  return subjects;
 }
 
 bool Student::getOnContract() const { return onContract; }
@@ -53,17 +40,17 @@ bool Student::getOnContract() const { return onContract; }
 float Student::getAverageScore() const
 {
   float sum{};
-  for (int i{}; i < Student::NUM_OF_SUBJECTS; ++i)
+  for (int i{}; i < subjects.getSize(); ++i)
   {
     sum += subjects[i];
   }
-  return sum / Student::NUM_OF_SUBJECTS;
+  return sum / subjects.getSize();
 }
 
 std::ostream &operator<<(std::ostream &os, const Student &student)
 {
   os << student.lname << ",";
-  for (int i{}; i < Student::NUM_OF_SUBJECTS; ++i)
+  for (int i{}; i < student.subjects.getSize(); ++i)
   {
     os << student.subjects[i] << ",";
   }
