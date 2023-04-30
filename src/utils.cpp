@@ -30,28 +30,43 @@ std::pair<std::string, int> readData(fs::path path)
   return std::make_pair(text, numOfStudents);
 }
 
-Student parseEntry(std::string line)
+bool is_number(const std::string &s)
+{
+  std::string::const_iterator it = s.begin();
+  while (it != s.end() && std::isdigit(*it))
+    ++it;
+  return !s.empty() && it == s.end();
+}
+
+Student *parseEntry(std::string line)
 {
   std::istringstream iss{line};
   std::string lname{};
-  int subjects[Student::NUM_OF_SUBJECTS]{};
+  Array<int> *subjects = new Array<int>;
   bool onContract{};
 
   std::getline(iss, lname, ',');
-  for (int i{}; i < Student::NUM_OF_SUBJECTS; ++i)
-  {
-    iss >> subjects[i];
-    iss.ignore(); // ignore the comma separator
-  }
-
+  int number{};
   std::string word{};
-  iss >> word;
+  while (true)
+  {
+    std::getline(iss, word, ',');
+    if (is_number(word))
+    {
+      number = stoi(word);
+      subjects->addElement(number);
+    }
+    else
+    {
+      break;
+    }
+  }
   onContract = word == "TRUE";
-
-  return Student(lname, subjects, onContract);
+  Student *student = new Student(lname, subjects, onContract);
+  return student;
 }
 
-void saveData(Student *students, int numOfSuccesfulStudents, int numOfStudents)
+void saveData(Student **students, int numOfSuccesfulStudents, int numOfStudents)
 {
   std::ofstream outfile(OUTPUT_FILENAME);
   if (!outfile)
@@ -63,17 +78,21 @@ void saveData(Student *students, int numOfSuccesfulStudents, int numOfStudents)
 
   for (int i{}; i < numOfStudents; ++i)
   {
-    if (!students[i].getOnContract())
+    if (!students[i]->getOnContract())
     {
-      outfile << students[i].getLname() << "," << std::fixed << std::setprecision(3)
-              << students[i].getAverageScore() << std::endl;
+      outfile << *students[i] << std::endl;
       index += 1;
       if (index == numOfSuccesfulStudents)
       {
-        std::cout << "Minimal score for scholarship: " << students[i].getAverageScore() << std::endl;
+        std::cout << "Minimal score for scholarship: " << students[i]->getAverageScore() << std::endl;
         break;
       }
     }
+  }
+
+  for (int i{}; i < numOfStudents; ++i)
+  {
+    delete students[i];
   }
 
   outfile.close();
@@ -84,7 +103,7 @@ void processData(std::pair<std::string, int> data)
   int numOfStudents = data.second;
   std::string text = data.first;
 
-  Student *students = new Student[numOfStudents];
+  Student **students = new Student *[numOfStudents];
   std::string line{};
   std::istringstream iss{text};
 
@@ -94,13 +113,13 @@ void processData(std::pair<std::string, int> data)
   {
     getline(iss, line);
     students[i] = parseEntry(line);
-    numOfBudgetStudents += students[i].getOnContract() ? 0 : 1;
+    numOfBudgetStudents += students[i]->getOnContract() ? 0 : 1;
   }
 
   std::sort(students, students + numOfStudents,
-            [](const Student &s1, const Student &s2)
+            [](const Student *s1, const Student *s2)
             {
-              return s1.getAverageScore() > s2.getAverageScore();
+              return s1->getAverageScore() > s2->getAverageScore();
             });
   int numOfSuccessfulStudents = 0.4 * numOfBudgetStudents;
 

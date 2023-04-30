@@ -11,7 +11,9 @@ class Array
   size_t capacity;
 
 public:
-  Array() : data{nullptr}, size{0}, capacity{0} {}
+  Array() : data{nullptr}, size{0}, capacity{0}
+  {
+  }
   explicit Array(size_t size) : data{new T[Array::powerOf2(size)]}, size{size}, capacity{Array::powerOf2(size)}
   {
     for (size_t i{}; i < size; ++i)
@@ -108,7 +110,7 @@ public:
   {
     if (size == capacity)
     {
-      resize(size * 2);
+      resize(Array::powerOf2(size + 1));
     }
     size += 1;
     data[size - 1] = element;
