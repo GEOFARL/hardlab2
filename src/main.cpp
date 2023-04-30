@@ -2,6 +2,7 @@
 #include <filesystem>
 #include "utils.h"
 #include "Student.h"
+#include "Array.h"
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -34,6 +35,7 @@ int main(int argc, char *argv[])
   {
     auto result = readData(path);
     processData(result);
+    Array<int> arr{5};
   }
   catch (const exception &e)
   {
