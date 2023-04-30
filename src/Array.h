@@ -12,6 +12,7 @@ class Array
 public:
   Array() : data{nullptr}, size{0} {}
   explicit Array(size_t size) : data{new T[size]}, size{size} {}
+
   Array(const T *elements, size_t size) : data{new T[size]}, size{size}
   {
     for (size_t i{}; i < size; ++i)
@@ -19,6 +20,31 @@ public:
       data[i] = elements[i];
     }
   }
+
+  Array(const Array &other) : data[new T[other.size]], size{size}
+  {
+    for (size_t i{}; i < size; ++i)
+    {
+      data[i] = other.data[i];
+    }
+  }
+
+  Array &operator=(const Array &other)
+  {
+    if (this != &other)
+    {
+      T *temp = new T[other.size];
+      for (size_t i = 0; i < other.size; ++i)
+      {
+        temp[i] = other.data[i];
+      }
+      delete[] data;
+      data = temp;
+      size = other.size;
+    }
+    return *this;
+  }
+
   ~Array()
   {
     delete[] data;
@@ -41,6 +67,8 @@ public:
     }
     return data[index];
   }
+
+  size_t getSize() const { return size; }
 };
 
 #endif
